@@ -1,4 +1,6 @@
 ﻿using EmployeesManagement.Data;
+using EmployeesManagement.Models;
+using EmployeesManagement.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,5 +35,23 @@ namespace EmployeesManagement.Controllers
             }
             return Ok(employee);
         }
+        [HttpPost]
+        public IActionResult PostEmployees(EmployeeDto PostEmployeeDto)
+        {
+            var employee = new Employee()
+            {
+                Email = PostEmployeeDto.Email,
+                FirstName = PostEmployeeDto.FirstName,
+                LastName = PostEmployeeDto.LastName,
+                Department = PostEmployeeDto.Department,
+                PhoneNumber = PostEmployeeDto.PhoneNumber,
+                Position = PostEmployeeDto.Position,
+            };
+            _dbContext.Employees.Add(employee);
+            _dbContext.SaveChanges();
+
+            return Ok(employee);
+        }
     }
+}
 }
