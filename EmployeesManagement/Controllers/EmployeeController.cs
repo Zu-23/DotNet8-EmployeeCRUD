@@ -70,5 +70,18 @@ namespace EmployeesManagement.Controllers
             return Ok(employee);
 
         }
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public IActionResult DeleteEmployee(Guid id)
+        {
+            var employee = _dbContext.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            _dbContext.Employees.Remove(employee);
+            _dbContext.SaveChanges();
+            return Ok();
+
     }
 }
